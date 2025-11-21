@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quantrya - Code the Future. Expert technology solutions.">
+    <title>Quantrya - Code the Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066ff;
+            --accent: #00d9ff;
+            --dark: #0f0f1a;
+            --darker: #1a1a2e;
+            --text: #e0e0e8;
+            --text-muted: #8a8a9e;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 24px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .scroll-indicator {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: var(--dark);
+            position: sticky;
+            top: 60px;
+            z-index: 99;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 12px 0;
+            position: relative;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--accent);
+        }
+
+        .navbar a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .navbar a:hover::after,
+        .navbar a.active::after {
+            width: 100%;
+        }
+
+        .main-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            min-height: calc(100vh - 120px);
+        }
+
+        section {
+            min-width: 100vw;
+            min-height: calc(100vh - 120px);
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            box-sizing: border-box;
+            text-align: center;
+            scroll-snap-align: start;
+        }
+
+        section h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--text);
+        }
+
+        #home {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2b4a 100%);
+        }
+
+        #home h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+            max-width: 700px;
+        }
+
+        #home p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        #home img {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 102, 255, 0.2);
+        }
+
+        button {
+            padding: 14px 36px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #0047a3;
+            transform: translateY(-2px);
+        }
+
+        #services {
+            background: var(--dark);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+            max-width: 1200px;
+        }
+
+        .service-card {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 36px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            background: rgba(0, 102, 255, 0.1);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .service-card i {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        #about {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2b4a 100%);
+        }
+
+        .about-cards-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .about-card {
+            text-align: center;
+            padding: 32px 24px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(0, 102, 255, 0.03);
+            transition: all 0.3s;
+        }
+
+        .about-card:hover {
+            border-color: rgba(0, 102, 255, 0.3);
+            background: rgba(0, 102, 255, 0.08);
+        }
+
+        .about-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .about-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        #pricing {
+            background: var(--dark);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+            max-width: 1300px;
+        }
+
+        .pricing-card {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 40px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            text-align: left;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: rgba(0, 102, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 16px 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 24px 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .pricing-features li:before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        #testimonials {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2b4a 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+            max-width: 1200px;
+        }
+
+        .testimonial-card {
+            background: rgba(0, 102, 255, 0.03);
+            padding: 36px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .author-title {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        #team {
+            background: var(--dark);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+            max-width: 1000px;
+        }
+
+        .team-member {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 32px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .team-member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .team-member h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .team-member .role {
+            font-size: 13px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .team-member p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        #clients {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2b4a 100%);
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+            max-width: 1000px;
+        }
+
+        .client-logo {
+            background: rgba(0, 102, 255, 0.03);
+            padding: 24px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .client-logo:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 102, 255, 0.3);
+            background: rgba(0, 102, 255, 0.08);
+        }
+
+        .client-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        #ceo {
+            background: var(--dark);
+        }
+
+        .card {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            max-width: 500px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .social-icons a {
+            color: var(--accent);
+            font-size: 24px;
+            transition: all 0.3s;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 102, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: rgba(0, 102, 255, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        #contact {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2b4a 100%);
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            text-align: left;
+            margin-top: -8px;
+            margin-bottom: 8px;
+        }
+
+        .payment-section {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            margin-top: 24px;
+            width: 100%;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .payment-option {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 12px;
+            border: 2px solid rgba(0, 102, 255, 0.2);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .payment-option.active {
+            border-color: var(--primary);
+            color: var(--accent);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        footer {
+            background: var(--darker);
+            border-top: 1px solid rgba(0, 102, 255, 0.1);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            z-index: 50;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            font-size: 13px;
+            border-top: 1px solid rgba(0, 102, 255, 0.1);
+            padding-top: 16px;
+        }
+
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger-menu .bar {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+            transition: right 0.3s ease;
+            z-index: 199;
+            border-left: 1px solid rgba(0, 102, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        .slide-menu.open {
+            right: 0;
+        }
+
+        .slide-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 24px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .slide-menu a:hover {
+            color: var(--accent);
+            background: rgba(0, 102, 255, 0.1);
+            padding-left: 32px;
+            border-left-color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            section {
+                padding: 40px 20px;
+                min-height: auto;
+            }
+
+            section h2 {
+                font-size: 32px;
+            }
+
+            #home h1 {
+                font-size: 36px;
+            }
+
+            .service-grid,
+            .pricing-grid,
+            .testimonials-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 12px 16px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+
+            section {
+                padding: 30px 16px;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+
+            #home h1 {
+                font-size: 28px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 12px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Quantrya</h1>
+        <div class="scroll-indicator">WELCOME</div>
+        <button class="hamburger-menu" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <nav class="navbar" id="navbar">
+        <a onclick="scrollToSection('home')">Home</a>
+        <a onclick="scrollToSection('services')">Services</a>
+        <a onclick="scrollToSection('about')">About</a>
+        <a onclick="scrollToSection('pricing')">Pricing</a>
+        <a onclick="scrollToSection('testimonials')">Testimonials</a>
+        <a onclick="scrollToSection('team')">Team</a>
+        <a onclick="scrollToSection('clients')">Clients</a>
+        <a onclick="scrollToSection('ceo')">CEO</a>
+        <a onclick="scrollToSection('contact')">Contact</a>
+    </nav>
+
+    <div class="slide-menu" id="slideMenu">
+        <a onclick="scrollToSection('home'); toggleMenu();">Home</a>
+        <a onclick="scrollToSection('services'); toggleMenu();">Services</a>
+        <a onclick="scrollToSection('about'); toggleMenu();">About</a>
+        <a onclick="scrollToSection('pricing'); toggleMenu();">Pricing</a>
+        <a onclick="scrollToSection('testimonials'); toggleMenu();">Testimonials</a>
+        <a onclick="scrollToSection('team'); toggleMenu();">Team</a>
+        <a onclick="scrollToSection('clients'); toggleMenu();">Clients</a>
+        <a onclick="scrollToSection('ceo'); toggleMenu();">CEO</a>
+        <a onclick="scrollToSection('contact'); toggleMenu();">Contact</a>
+    </div>
+
+    <div class="main-container" id="mainContainer">
+        <!-- Home Section -->
+        <section id="home">
+            <img src="ceo_photo.jpg" alt="CEO Anthony Wachira Gitahi">
+            <h1>Code the Future</h1>
+            <p>Leading innovation in technology. Web development, AI automation, and IT consultancy that transforms businesses.</p>
+            <button onclick="scrollToSection('services')">Explore Services</button>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web Development</h3>
+                    <p>Modern, responsive web applications built with cutting-edge technologies and best practices.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Software Development</h3>
+                    <p>Custom software solutions tailored to your business needs and requirements.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI & Automation</h3>
+                    <p>Intelligent automation and AI solutions to optimize your business operations.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-server"></i>
+                    <h3>IT Consultancy</h3>
+                    <p>Expert consultation to guide your technology infrastructure and digital transformation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Quantrya</h2>
+            <div class="about-cards-vertical">
+                <div class="about-card">
+                    <h3>Our Vision</h3>
+                    <p>To be a global leader in technology solutions, empowering businesses to thrive in the digital age through innovation, excellence, and trust.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Our Mission</h3>
+                    <p>To deliver world-class technology services that drive digital transformation, enhance efficiency, and create lasting value for our clients.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Our Motto</h3>
+                    <p>"Code the Future" - Innovating today to build the technologies and solutions that will define tomorrow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing">
+            <h2>Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">Perfect for small projects</p>
+                    <div class="price">$499<span style="font-size: 16px; color: var(--text-muted);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Up to 5 pages</li>
+                        <li>Basic SEO optimization</li>
+                        <li>Mobile responsive</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button>Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">POPULAR</div>
+                    <h3>Professional</h3>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">Most popular choice</p>
+                    <div class="price">$999<span style="font-size: 16px; color: var(--text-muted);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Unlimited pages</li>
+                        <li>Advanced SEO</li>
+                        <li>E-commerce integration</li>
+                        <li>Priority support</li>
+                        <li>Analytics dashboard</li>
+                    </ul>
+                    <button>Get Started</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">For large-scale projects</p>
+                    <div class="price">$2,499<span style="font-size: 16px; color: var(--text-muted);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Custom solutions</li>
+                        <li>24/7 support</li>
+                        <li>Dedicated team</li>
+                        <li>AI integration</li>
+                        <li>Advanced security</li>
+                    </ul>
+                    <button>Contact Sales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <h2>Client Testimonials</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Quantrya transformed our online presence. Their team delivered an exceptional website that exceeded our expectations!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div style="text-align: left;">
+                            <div class="author-name">Sarah Miller</div>
+                            <div class="author-title">CEO, TechStart Inc</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Outstanding service and support. The team went above and beyond to ensure our project was perfect. Highly recommended!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div style="text-align: left;">
+                            <div class="author-name">John Davis</div>
+                            <div class="author-title">Founder, Digital Solutions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Professional, reliable, and innovative. Quantrya is the perfect partner for any technology initiative. Worth every penny!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EC</div>
+                        <div style="text-align: left;">
+                            <div class="author-name">Emily Chen</div>
+                            <div class="author-title">CTO, Innovation Labs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-avatar">AW</div>
+                    <h3>Anthony Wachira</h3>
+                    <div class="role">CEO & Founder</div>
+                    <p>Visionary leader with 10+ years of technology expertise and passion for innovation.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-avatar">MP</div>
+                    <h3>Maria Patel</h3>
+                    <div class="role">CTO</div>
+                    <p>Technical architect specializing in cloud solutions and system design.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-avatar">RJ</div>
+                    <h3>Robert Johnson</h3>
+                    <div class="role">Lead Developer</div>
+                    <p>Full-stack developer passionate about creating elegant code and solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clients Section -->
+        <section id="clients">
+            <h2>Our Clients</h2>
+            <div class="clients-grid">
+                <div class="client-logo"><div class="client-name">TechCorp</div></div>
+                <div class="client-logo"><div class="client-name">InnovateLabs</div></div>
+                <div class="client-logo"><div class="client-name">DigitalHub</div></div>
+                <div class="client-logo"><div class="client-name">CloudSync</div></div>
+                <div class="client-logo"><div class="client-name">NextGen AI</div></div>
+                <div class="client-logo"><div class="client-name">FutureTech</div></div>
+            </div>
+        </section>
+
+        <!-- CEO Section -->
+        <section id="ceo">
+            <div class="card">
+                <img src="ceo_photo.jpg" alt="CEO Anthony Wachira Gitahi">
+                <h3>Anthony Wachira Gitahi</h3>
+                <p>CEO & Founder of Quantrya. A visionary technology leader dedicated to driving digital innovation and empowering businesses through cutting-edge solutions.</p>
+                <div class="social-icons">
+                    <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                <input type="text" id="name" placeholder="Your Name" required aria-label="Full Name">
+                <span class="error-message" id="nameError"></span>
+
+                <input type="email" id="email" placeholder="Your Email" required aria-label="Email Address">
+                <span class="error-message" id="emailError"></span>
+
+                <input type="tel" id="phone" placeholder="Your Phone" required aria-label="Phone Number">
+                <span class="error-message" id="phoneError"></span>
+
+                <textarea id="message" placeholder="Your Message" rows="4" required aria-label="Message"></textarea>
+                <span class="error-message" id="messageError"></span>
+
+                <div class="payment-section">
+                    <p style="color: var(--text); margin-bottom: 16px; font-weight: 600;">Choose Payment Method</p>
+                    <div class="payment-options">
+                        <button type="button" class="payment-option active" onclick="selectPayment('mpesa')">M-Pesa</button>
+                        <button type="button" class="payment-option" onclick="selectPayment('paypal')">PayPal</button>
+                    </div>
+
+                    <div id="mpesaSection" style="display: block;">
+                        <input type="number" id="mpesaAmount" placeholder="Amount (KES)" step="0.01">
+                        <button type="button" onclick="processMpesa()">Pay with M-Pesa</button>
+                    </div>
+
+                    <div id="paypalSection" style="display: none;">
+                        <input type="number" id="paypalAmount" placeholder="Amount (USD)" step="0.01">
+                        <button type="button" onclick="processPaypal()">Pay with PayPal</button>
+                    </div>
+                </div>
+
+                <button type="submit" style="margin-top: 24px;">Send Message</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a onclick="scrollToSection('home')">Home</a>
+                <a onclick="scrollToSection('services')">Services</a>
+                <a onclick="scrollToSection('pricing')">Pricing</a>
+                <a onclick="scrollToSection('contact')">Contact</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Quantrya. All rights reserved. | Code the Future</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const mainContainer = document.getElementById('mainContainer');
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const scrollLeft = section.offsetLeft;
+                mainContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                updateScrollIndicator(sectionId);
+            }
+        }
+
+        function updateScrollIndicator(sectionId) {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (indicator) {
+                indicator.textContent = sectionId.toUpperCase();
+            }
+
+            const navLinks = document.querySelectorAll('.navbar a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = Array.from(navLinks).find(link => 
+                link.textContent.toLowerCase() === sectionId.toLowerCase()
+            );
+            if (activeLink) activeLink.classList.add('active');
+        }
+
+        function toggleMenu() {
+            const slideMenu = document.getElementById('slideMenu');
+            slideMenu.classList.toggle('open');
+        }
+
+        function selectPayment(method) {
+            const mpesaSection = document.getElementById('mpesaSection');
+            const paypalSection = document.getElementById('paypalSection');
+            const buttons = document.querySelectorAll('.payment-option');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (method === 'mpesa') {
+                buttons[0].classList.add('active');
+                mpesaSection.style.display = 'block';
+                paypalSection.style.display = 'none';
+            } else {
+                buttons[1].classList.add('active');
+                mpesaSection.style.display = 'none';
+                paypalSection.style.display = 'block';
+            }
+        }
+
+        function processMpesa() {
+            const amount = document.getElementById('mpesaAmount').value;
+            if (amount) {
+                alert('M-Pesa payment of ' + amount + ' KES initiated!');
+            } else {
+                alert('Please enter an amount');
+            }
+        }
+
+        function processPaypal() {
+            const amount = document.getElementById('paypalAmount').value;
+            if (amount) {
+                alert('PayPal payment of $' + amount + ' USD initiated!');
+            } else {
+                alert('Please enter an amount');
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            let isValid = true;
+
+            if (!name.trim()) {
+                document.getElementById('nameError').textContent = 'Name is required';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').textContent = '';
+            }
+
+            if (!email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Valid email is required';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            if (phone.length < 10) {
+                document.getElementById('phoneError').textContent = 'Valid phone number is required';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = '';
+            }
+
+            if (!message.trim()) {
+                document.getElementById('messageError').textContent = 'Message is required';
+                isValid = false;
+            } else {
+                document.getElementById('messageError').textContent = '';
+            }
+
+            if (isValid) {
+                alert('Thank you! Your message has been sent successfully.');
+                event.target.reset();
+            }
+        }
+
+        let lastScrollX = 0;
+        const slideMenu = document.getElementById('slideMenu');
+
+        slideMenu.addEventListener('touchstart', (e) => {
+            lastScrollX = e.touches[0].clientX;
+        }, false);
+
+        slideMenu.addEventListener('touchmove', (e) => {
+            const currentX = e.touches[0].clientX;
+            const diff = lastScrollX - currentX;
+            if (diff > 50) {
+                slideMenu.classList.remove('open');
+            }
+        }, false);
+
+        slideMenu.addEventListener('wheel', (e) => {
+            if (e.deltaX > 50) {
+                slideMenu.classList.remove('open');
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
